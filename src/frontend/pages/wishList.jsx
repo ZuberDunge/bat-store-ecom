@@ -24,7 +24,7 @@ export default function WishlistPage() {
         <>
             <div class="wishlist">
                 {wishList.length == 0 ? <div className="empty-cart">
-                    Add something here
+                    No Items in WishList, Start Adding!
                 </div> : null}
                 <div class="wish-list-container">
                     {
