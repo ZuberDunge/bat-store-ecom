@@ -25,7 +25,7 @@ export const signupHandler = function (schema, request) {
         422,
         {},
         {
-          errors: ["Unprocessable Entity. Email Already Exists."],
+          errors: ["Email Already Exists."],
         }
       );
     }
@@ -72,7 +72,7 @@ export const loginHandler = function (schema, request) {
       return new Response(
         404,
         {},
-        { errors: ["The email you entered is not Registered. Not Found error"] }
+        { errors: ["Entered email is not Registered!"] }
       );
     }
     if (bcrypt.compareSync(password, foundUser.password)) {
