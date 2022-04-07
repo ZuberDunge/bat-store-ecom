@@ -1,42 +1,36 @@
 import "./App.css";
-import logo from "./logo.png";
+import Main from "./frontend/pages/main";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ProductPage from "./frontend/pages/singelProduct";
+import Cart from "./frontend/pages/cart";
+import Navbar from "./frontend/pages/nav";
+import Footer from "./frontend/pages/footer";
+import WishlistPage from "./frontend/pages/wishList";
+import Login from "./frontend/pages/login";
+import Profile from "./frontend/pages/profile";
+import CategorPage from "./frontend/pages/categoryPage";
+import { useContext } from "react";
+import { FilterContext } from "./frontend/context/filterContext";
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} alt="mockBee logo" width="180" height="180" />
-        <h1 className="brand-title">
-          Welcome to <span>mockBee!</span>
-        </h1>
-        <p className="brand-description">
-          Get started by editing <code>src/App.js</code>
-        </p>
-        <div className="links">
-          <a
-            href="https://mockbee.netlify.app/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Explore mockBee
-          </a>
-          <a
-            href="https://mockbee.netlify.app/docs/api/introduction"
-            target="_blank"
-            rel="noreferrer"
-          >
-            API Documentation
-          </a>
-          <a
-            href="https://github.com/neogcamp/mockBee"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Contribute
-          </a>
-        </div>
-      </header>
+
+    <Router Router > <div className="App">
+      <Navbar />
+      <Routes>
+        <Route exact path='/' element={<Main />} />
+        <Route path='/comics/:id' element={<ProductPage />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/wishlist' element={<WishlistPage />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/category/:id' element={<CategorPage />} />
+        <Route path='/category/:publicationId/:id' element={<CategorPage />} />
+        <Route path='/profile' element={<Profile />} />
+      </Routes>
+      <Footer />
     </div>
+    </Router >
   );
 }
 
