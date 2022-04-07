@@ -1,25 +1,53 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../context/cartContext'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { calculateDiscount, calculateTotalDiscount } from './discount'
-import axios from 'axios'
-import { WishListContext } from '../context/wishListContext'
-
-export default function Cart() {
-    const { cart, increaseItem, deleteFromCart, decreaseQuantity } = useContext(CartContext)
-    console.log(cart);
 
 
-    const { addToWishList } = useContext(WishListContext)
+export default function Checkout() {
+    const { cart, setCart } = useContext(CartContext)
+    const [couponAmount, setcouponAmount] = useState(0)
+    const [couponCode, setCouponCode] = useState("")
+    const [couponApplied, setCouponApplied] = useState(false)
+    const [invalidCoupon, setinvalidCoupon] = useState(false)
+    const [orderPlaced, setorderPlaced] = useState(false)
+    const applyCoupon = () => {
+        if (couponCode == "NEW10") {
+            setcouponAmount(100)
+            setCouponApplied(true)
+            setTimeout(() => {
+                setCouponApplied(false)
+            }, 2000)
+        } else if (couponCode == "NEW20") {
+            setcouponAmount(200)
+            setCouponApplied(true)
+            setTimeout(() => {
+                setCouponApplied(false)
+            }, 2000)
+        } else if (couponCode == "NEW500") {
+            setcouponAmount(500)
+            setCouponApplied(true)
+            setTimeout(() => {
+                setCouponApplied(false)
+            }, 2000)
+        } else {
+            setinvalidCoupon(true)
+            setTimeout(() => {
+                setinvalidCoupon(false)
+            }, 2000)
+        }
 
-    const moveToWishList = (item) => {
-        deleteFromCart(item._id)
-        addToWishList(item)
     }
 
-
     const navigate = useNavigate()
-
+    const plcaeOrder = () => {
+        setorderPlaced(true)
+        setTimeout(() => {
+            setorderPlaced(false)
+            navigate("/")
+        }, 2000)
+        console.log(orderPlaced);
+    }
     useEffect(() => {
         if (localStorage.getItem("userToken") == null) {
             navigate('/login')
@@ -36,7 +64,7 @@ export default function Cart() {
                         <div
                             className="bat-flex wrap-on-500 bat-align-center flex-gap-1 bat-pad-1 bat-justify-between"
                         >
-                            <div className="fs-18px bold-500">My Cart ({cart.length})</div>
+                            <div className="fs-18px bold-500">Place Order</div>
                             <div className="bat-flex delivery-flex bat-align-center flex-gap-1">
                                 <div className="bat-flex color-primary bat-align-center">
                                     <span className="material-icons"> local_shipping </span>
@@ -80,32 +108,17 @@ export default function Cart() {
                                             >
                                         </div>
                                     </div>
-                                    <div className="bat-flex bat-gap-1 bat-align-center m-tb-8">
-                                        <div className="rating">
-                                            {item.rating} <span className="material-icons"> star </span>
-                                        </div>
-                                        <div className="bat-fs-12px">Free Delivery</div>
-                                    </div>
+                                    <div>Quantity : {item.qty}</div>
                                 </div>
                             </div>
-                            <div className="cart-save-later">
-                                <div className="cart-add-qnt">
-                                    <span style={{ cursor: item.qty <= 1 ? "not-allowed" : "pointer" }} onClick={() => decreaseQuantity(item)}>-</span>
-                                    <span>{item.qty}</span>
-                                    <span onClick={() => increaseItem(item._id)}>+</span>
 
-
-                                </div>
-                                <div className="save-for-later" onClick={() => moveToWishList(item)}>MOVE TO WISHLIST</div>
-                                <div onClick={() => deleteFromCart(item._id)}>REMOVE</div>
-                            </div>
                         </div>
                         )}
 
                     </div>
 
                     <div className="total-bill-section bat-flex bat-flx-dir-col">
-                        <div className="bat-fw-600 grey-color">PRICE DETAILS</div>
+                        <div className="bat-fw-600 grey-color">Bill Summary</div>
                         <div className="bat-flex bat-justify-between">
                             <div>Price (3 items)</div>
                             <span> ₹ {cart.reduce(function (total, currentValue) {
@@ -116,10 +129,24 @@ export default function Cart() {
                             <div>Discount</div>
                             <span className="discount-color"> − ₹ {cart.reduce(calculateTotalDiscount, 0)}</span>
                         </div>
-
+                        <div className="bat-flex bat-justify-between">
+                            <div>Coupons for you</div>
+                            <span className="discount-color"> − ₹ {couponAmount}</span>
+                        </div>
                         <div className="bat-flex border-btm-grey-dotted bat-justify-between">
                             <div>Delivery Charges</div>
                             <span className="discount-color"> FREE</span>
+                        </div>
+                        <div className="bat-fs-14px bat-fw-500">Try NEW10, NEW200, NEW500</div>
+                        <div
+                            className="bat-flex apply-coupon border-btm-grey-dotted flex-gap-1"
+                        >
+                            <input type="text" value={couponCode} onChange={(e) => setCouponCode(e.target.value)} placeholder="Apply Coupon" />
+                            <button onClick={() => applyCoupon()}
+                                className="bat-btn apply-coupon-btn bat-br-3px bat-btn-primary-outlined"
+                            >
+                                <i className="fas fa-tags"></i> Apply
+                            </button>
                         </div>
 
                         <div
@@ -128,15 +155,33 @@ export default function Cart() {
                             <div>Total Amount</div>
                             <span className="discount-color"> ₹ {cart.reduce(function (total, currentValue) {
                                 let discountedPrice = calculateDiscount(currentValue.price, currentValue.discount)
-                                return total + (discountedPrice * currentValue.qty)
+                                return total + (discountedPrice * currentValue.qty) - couponAmount
                             }, 0)}</span>
                         </div>
-
-                        <Link to="/cart/checkout" style={{ textAlign: "center" }} className="bat-btn plcae-order-btn bat-br-3px bat-btn-primary">
-                            Checkout
-                        </Link>
+                        <div className="bat-flex discount-color bat-fw-600 bat-justify-between">
+                            You will save ₹{cart.reduce(calculateTotalDiscount, 0) + couponAmount} on this order
+                        </div>
+                        <button onClick={plcaeOrder} className="bat-btn plcae-order-btn bat-br-3px bat-btn-primary">
+                            PLACE ORDER
+                        </button>
                     </div>
                 </div>
             </div>}
+        {couponApplied ? <div class="bat-alert bat-alert-dismiss bat-alert-success">
+            <span>
+                <i class="fas fa-check-circle"></i> Yayyy -{couponAmount} Applied!
+            </span>
+
+        </div> : null}
+        {invalidCoupon ? <div class="bat-alert bat-alert-error">
+            <i class="fas fa-exclamation-circle"></i> Invalid Coupon!
+        </div> : null}
+
+        {orderPlaced ?
+            <div style={{ bottom: "40%" }} class="bat-alert bat-flex bat-flx-dir-col bat-justify-center bat-align-center bat-alert-info">
+                <i style={{ fontSize: "4rem", textAlign: "center" }} class="fas fa-check-circle"></i> <br />
+                Order Placed!
+            </div> : null
+        }
     </>)
 }

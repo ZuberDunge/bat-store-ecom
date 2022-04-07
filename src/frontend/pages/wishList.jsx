@@ -7,8 +7,8 @@ import { calculateDiscount } from './discount'
 
 
 export default function WishlistPage() {
-    const { wishList, addItemToWishList, deleteItemWishList } = useContext(WishListContext);
-    const { cart, deleteItem, addItem, decreaseQuantity } = useContext(CartContext)
+    const { wishList, deleteItemWishList } = useContext(WishListContext);
+    const { addItem, } = useContext(CartContext)
     const moveToCart = (item) => {
         addItem(item);
         deleteItemWishList(item._id)
@@ -23,7 +23,6 @@ export default function WishlistPage() {
     return (
         <>
             <div class="wishlist">
-                {console.log(wishList)}
                 {wishList.length == 0 ? <div className="empty-cart">
                     Add something here
                 </div> : null}
