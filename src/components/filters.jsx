@@ -1,17 +1,17 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { FilterContext } from '../frontend/context/filterContext';
 
 export default function FilterSection() {
 
     const { products, dispatch, filteredProducts, filteredList } = useContext(FilterContext)
     console.log(filteredList);
-
+    const [openFilters, setOpenFIlters] = useState(false)
     console.log(filteredProducts);
     return (
 
 
         <div id="filters">
-            <div
+            <div onClick={() => setOpenFIlters(!openFilters)}
                 id="filters-btn"
                 className="filter-heading bat-fw-600 bat-flex bat-justify-between bat-align-center"
             >
@@ -21,7 +21,7 @@ export default function FilterSection() {
                 </span>
             </div>
 
-            <div className="filters">
+            <div className={openFilters ? "filters filters-show" : "filters"}>
                 <div onClick={() => dispatch({ type: "CLEAR_FILTERS" })}
                     className="filter-heading bat-fw-400 bat-flex bat-justify-end bat-align-center"
                 >
