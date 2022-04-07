@@ -12,7 +12,6 @@ const AuthContextProvider = (props) => {
 
     const loginUser = (userDataLogin) => {
         axios.post("/api/auth/login", userDataLogin).then(res => {
-            console.log(res.data);
             setUserInfo(res.data.foundUser)
             localStorage.setItem("userInfoData", JSON.stringify(res.data.foundUser))
             localStorage.setItem("userToken", res.data.encodedToken)
@@ -21,7 +20,6 @@ const AuthContextProvider = (props) => {
             }
             setLoggedIn(true)
         }).catch((error) => {
-            console.log(error.response.data.errors[0])
             setError(true)
             setErrorMssg(error.response.data.errors[0])
             setTimeout(() => {
@@ -33,7 +31,6 @@ const AuthContextProvider = (props) => {
     const registerUser = (userData) => {
         axios.post("/api/auth/signup", userData).then(res => {
             localStorage.setItem("userToken", res.data.encodedToken)
-            console.log(res.data.createdUser);
             localStorage.setItem("userInfoData", JSON.stringify(res.data.createdUser))
             setUserInfo(res.data.createdUser)
         }).catch((error) => {
