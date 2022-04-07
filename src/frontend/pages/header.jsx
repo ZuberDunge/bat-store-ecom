@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { products } from '../../backend/db/products'
+import { FilterContext } from '../context/filterContext'
+import NetflixLoader from '../../loader'
 export default function Header() {
+    const { products, loading } = useContext(FilterContext)
     return (
         <>
             <header class="landing-header bat-pad-t-8px">
@@ -60,27 +62,27 @@ export default function Header() {
                     </div>
                 </div>
             </header>
-            <div class="slider-box">
-                <div id="slider">
+            {loading ? <div class="slider-box">
+                <Link to={`/comics/${products[0]._id}`} id="slider">
                     <div class="slider-item">
                         <img
-                            src="https://www.dccomics.com/sites/default/files/BM_Cv119_var_11921_DIGITAL_61d75399d57db8.08186915.jpg"
-                            alt=""
+                            src={products[0].imgSrc}
+                            alt={products[0].title}
                         />
                         <div class="slider-badge bat-flex bat-align-center">
                             New Arrival <span class="material-icons"> star </span>
                         </div>
                         <div class="slider-title">
-                            BATMAN #119 <br />
+                            {products[0].title} <br />
                             <span class="small-text"> Tuesday, Jan 4th, 2022 </span>
                         </div>
                     </div>
 
 
 
-                </div>
+                </Link>
 
-            </div>
+            </div> : <NetflixLoader />}
 
 
         </>)

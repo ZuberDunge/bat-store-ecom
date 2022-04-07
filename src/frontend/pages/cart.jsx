@@ -27,7 +27,7 @@ export default function Cart() {
     }, [])
     return (<>
         {cart.length == 0 || cart == null ? <div className="empty-cart">
-            Add something here
+            No Items in Cart, Start Adding!
         </div> :
             <div className="cart">
                 <div className="cart-grid">

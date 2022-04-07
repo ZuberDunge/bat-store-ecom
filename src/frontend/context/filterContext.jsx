@@ -6,11 +6,12 @@ export const FilterContext = createContext()
 
 const FilterContextProvider = (props) => {
     const [products, setProducts] = useState([])
-
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
         axios.get("/api/products").then(res => {
             console.log(res.data);
             setProducts(res.data.products)
+            setLoading(true)
         }).catch((error) => {
             // here you will have access to error.response
             console.log(error.response.data)
@@ -102,7 +103,7 @@ const FilterContextProvider = (props) => {
     const filteredProducts = sortedPriceRangeData;
     console.log(filteredList);
     return (
-        <FilterContext.Provider value={{ filteredProducts, filteredList, dispatch, products }}>
+        <FilterContext.Provider value={{ filteredProducts, loading, filteredList, dispatch, products }}>
             {props.children}
         </FilterContext.Provider>
     )
