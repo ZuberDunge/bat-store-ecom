@@ -37,6 +37,10 @@ Features :
 
 ## Demo
 
+<img width="900" alt="2" src="https://user-images.githubusercontent.com/84624397/162186996-23f46500-7390-4f81-b809-aad343950ef4.png">
+<img width="900" alt="3" src="https://user-images.githubusercontent.com/84624397/162187080-0715f5d0-1775-449d-a9a3-7e98c47f0e40.png">
+<img width="900" alt="4" src="https://user-images.githubusercontent.com/84624397/162187278-b15352cc-87c3-4d08-82f7-b725881292c4.png">
+<img width="900" alt="5" src="https://user-images.githubusercontent.com/84624397/162187294-9e06a569-d632-40cc-b176-e38d0402e9d6.png">
 
 
 
@@ -45,7 +49,7 @@ Features :
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/ZuberDunge/bat-store-ecom
 ```
 
 Go to the project directory
