@@ -48,7 +48,6 @@ export default function Login() {
             email: data.email,
             password: data.password,
         }
-        console.log(data);
         registerUser(userData)
     };
 
