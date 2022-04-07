@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../context/cartContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { calculateDiscount, calculateTotalDiscount } from './discount'
 import axios from 'axios'
 import { WishListContext } from '../context/wishListContext'
@@ -8,14 +8,8 @@ import { WishListContext } from '../context/wishListContext'
 export default function Cart() {
     const { cart, increaseItem, deleteFromCart, decreaseQuantity } = useContext(CartContext)
     console.log(cart);
-    const [couponCodeKuch, setCouponCodeKuch] = useState(0)
-    const [couponCode, setCouponCode] = useState(0)
 
-    const [orderDetails, setorderDetails] = useState({
-        price: "",
-        qty: "",
-        discount: ""
-    })
+
     const { addToWishList } = useContext(WishListContext)
 
     const moveToWishList = (item) => {
@@ -122,39 +116,25 @@ export default function Cart() {
                             <div>Discount</div>
                             <span className="discount-color"> − ₹ {cart.reduce(calculateTotalDiscount, 0)}</span>
                         </div>
-                        <div className="bat-flex bat-justify-between">
-                            <div>Coupons for you</div>
-                            <span className="discount-color"> − ₹ {couponCodeKuch}</span>
-                        </div>
+
                         <div className="bat-flex border-btm-grey-dotted bat-justify-between">
                             <div>Delivery Charges</div>
                             <span className="discount-color"> FREE</span>
                         </div>
-                        <div
-                            className="bat-flex apply-coupon border-btm-grey-dotted flex-gap-1"
-                        >
-                            <input type="text" value={couponCode} onChange={(e) => setCouponCode(e.target.value)} placeholder="Apply Coupon" />
-                            <button onClick={() => setCouponCodeKuch(couponCode)}
-                                className="bat-btn apply-coupon-btn bat-br-3px bat-btn-primary-outlined"
-                            >
-                                <i className="fas fa-tags"></i> Apply
-                            </button>
-                        </div>
+
                         <div
                             className="bat-flex border-btm-grey-dotted bat-fw-600 bat-justify-between"
                         >
                             <div>Total Amount</div>
                             <span className="discount-color"> ₹ {cart.reduce(function (total, currentValue) {
                                 let discountedPrice = calculateDiscount(currentValue.price, currentValue.discount)
-                                return total + (discountedPrice * currentValue.qty) - couponCodeKuch
+                                return total + (discountedPrice * currentValue.qty)
                             }, 0)}</span>
                         </div>
-                        <div className="bat-flex discount-color bat-fw-600 bat-justify-between">
-                            You will save ₹{cart.reduce(calculateTotalDiscount, 0)} on this order
-                        </div>
-                        <button className="bat-btn plcae-order-btn bat-br-3px bat-btn-primary">
-                            PLACE ORDER
-                        </button>
+
+                        <Link to="/cart/checkout" style={{ textAlign: "center" }} className="bat-btn plcae-order-btn bat-br-3px bat-btn-primary">
+                            Checkout
+                        </Link>
                     </div>
                 </div>
             </div>}

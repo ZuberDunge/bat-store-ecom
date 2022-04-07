@@ -189,7 +189,26 @@ export const products = [
     superHeroes: ["WONDERWOMAN", "BATMAN", "SUPERMAN", "FLASH", "CYBORG"],
     stockAvailability: true
   },
-
+  {
+    _id: "14",
+    qty: 1,
+    rating: 2,
+    label: "Marvel",
+    title: "Avengers (2018) #50 ",
+    imgSrc: "https://i.annihil.us/u/prod/marvel/i/mg/8/03/619e6347512f0/clean.jpg",
+    author: " Jason Aaron, Christopher Ruocchio",
+    published_date: "January 13, 2021    ",
+    price: 1499,
+    discount: 20,
+    categoryName: "MARVEL",
+    summary: "COMMEMORATING LEGACY #750! Supersize extravaganza of Earth's mightiest action and surprises! Witness the jaw-dropping conclusion of 'World War She-Hulk!' Learn the true purpose of the prehistoric Avengers! Uncover the shocking secret of the Iron Inquisitor! Behold the most powerful collection of super-psychopaths that any Earth has ever seen! Watch the Avengers recruit some shocking new members! And follow the Ghost Rider on a quest for vengeance across the Multiverse that will spark an all-new era in Avengers history! Plus: A bonus story featuring Thor by Christopher Ruocchio and Steve McNiven!",
+    offers: ["Get extra 5% off (price inclusive of discount)", "5% Unlimited Cashback on Axis Bank Credit Card", "Sign up for Pay Later and get Gift Card worth ₹100", "No Cost EMI on Bajaaj Finsexv EMI Card on cart value above ₹2999"],
+    delivery: "Free",
+    delivery_time: "8",
+    COD: "available",
+    superHeroes: ["IRONAMAN", "CAPTAINAMERICA"],
+    stockAvailability: false
+  },
   {
     _id: "12",
     qty: 1,
@@ -230,26 +249,7 @@ export const products = [
     superHeroes: ["WANDA", "VISION"],
     stockAvailability: false
   },
-  {
-    _id: "14",
-    qty: 1,
-    rating: 2,
-    label: "Marvel",
-    title: "Avengers (2018) #50 ",
-    imgSrc: "https://i.annihil.us/u/prod/marvel/i/mg/8/03/619e6347512f0/clean.jpg",
-    author: " Jason Aaron, Christopher Ruocchio",
-    published_date: "January 13, 2021    ",
-    price: 1499,
-    discount: 20,
-    categoryName: "MARVEL",
-    summary: "COMMEMORATING LEGACY #750! Supersize extravaganza of Earth's mightiest action and surprises! Witness the jaw-dropping conclusion of 'World War She-Hulk!' Learn the true purpose of the prehistoric Avengers! Uncover the shocking secret of the Iron Inquisitor! Behold the most powerful collection of super-psychopaths that any Earth has ever seen! Watch the Avengers recruit some shocking new members! And follow the Ghost Rider on a quest for vengeance across the Multiverse that will spark an all-new era in Avengers history! Plus: A bonus story featuring Thor by Christopher Ruocchio and Steve McNiven!",
-    offers: ["Get extra 5% off (price inclusive of discount)", "5% Unlimited Cashback on Axis Bank Credit Card", "Sign up for Pay Later and get Gift Card worth ₹100", "No Cost EMI on Bajaaj Finsexv EMI Card on cart value above ₹2999"],
-    delivery: "Free",
-    delivery_time: "8",
-    COD: "available",
-    superHeroes: ["IRONAMAN", "CAPTAINAMERICA"],
-    stockAvailability: false
-  },
+
   {
     _id: "15",
     qty: 1,
@@ -408,7 +408,7 @@ export const products = [
     delivery_time: "8",
     COD: "available",
     superHeroes: ["BATMAN", "NIGHTWING", "ROBIN", "BATGRIL"],
-    stockAvailability: true
+    stockAvailability: false
   },
   {
     _id: "10",
